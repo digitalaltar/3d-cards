@@ -1,6 +1,6 @@
+let selectedCard;
 let cardFrontTexture;
 let cardBackTexture;
-let overlayImage; // Additional image to overlay on top of the card
 let viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the smaller dimension
 let cardWidth = viewportSize * 0.7; //
 let cardHeight = cardWidth; // Maintain aspect ratio
@@ -11,28 +11,30 @@ let rotationY = 0; // Current rotation around the Y axis, adjusted for user inte
 let autoRotateSpeed = 0.01; // Initial automatic rotation speed
 let userHasClicked = false; // New flag to track if the user has clicked
 let interactionTimeout;
-
 let directionalLightDirection;
 let pointLight1Position;
 let pointLight2Position;
 let directionalLightColor;
 let pointLight1Color;
 let pointLight2Color;
+let textGraphics;
+let customFont;
 
 function preload() {
-    // Load the JSON file
-    let imageData = loadJSON('data.json', () => {
-        // Once the JSON is loaded, randomly select and load the images
-        // Randomly select a front texture
-        let frontTextures = imageData.cardFrontTextures;
-        let randomFrontIndex = floor(random(frontTextures.length));
-        cardFrontTexture = loadImage(frontTextures[randomFrontIndex]);
+  let data = loadJSON('data.json', () => {
+    // Select a front texture and store its information
+    let frontTextures = data.cardFrontTextures;
+    let randomFrontIndex = floor(random(frontTextures.length));
+    selectedCard = frontTextures[randomFrontIndex]; // This now includes the name and URL
+    cardFrontTexture = loadImage(selectedCard.url);
 
-        // Randomly select a back texture
-        let backTextures = imageData.cardBackTextures;
-        let randomBackIndex = floor(random(backTextures.length));
-        cardBackTexture = loadImage(backTextures[randomBackIndex]);
-    });
+    // Randomly select a back texture
+    let backTextures = data.cardBackTextures;
+    let randomBackIndex = floor(random(backTextures.length));
+    cardBackTexture = loadImage(backTextures[randomBackIndex]);
+  });
+
+    customFont = loadFont('PixelifySans.ttf');
 }
 
 function setup() {
@@ -58,7 +60,7 @@ function setup() {
     };
 
     // Define minimum and maximum RGB values
-    let minColor = 60; // Avoids too dark colors
+    let minColor = 100; // Avoids too dark colors
     let maxColor = 200; // Avoids too bright colors
 
     // Randomize RGB values for the directional light within a good range
@@ -81,6 +83,16 @@ function setup() {
         g: random(minColor, maxColor),
         b: random(minColor, maxColor)
     };
+
+    textGraphics = createGraphics(cardWidth, cardHeight); // Adjust size as needed
+
+    textGraphics.background(0, 0, 0, 0); // Make background transparent
+    textGraphics.fill(255); // Set text color
+    textGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
+    textGraphics.textFont(customFont); // Set the custom font
+    textGraphics.textSize(32);
+    textGraphics.textAlign(RIGHT, BOTTOM);
+    textGraphics.text(selectedCard.name, textGraphics.width - 20, textGraphics.height - 10); // Adjust padding as needed
 }
 
 function draw() {
@@ -108,11 +120,11 @@ function draw() {
     if (cos(rotationY) > 0) {
         texture(cardFrontTexture);
         // Change specular material to simulate holographic shimmer
-        specularMaterial(250, 250, 250);
+        specularMaterial(255, 255, 255);
     } else {
         texture(cardBackTexture);
         // Change specular material to simulate holographic shimmer
-        specularMaterial(250, 250, 250);
+        specularMaterial(255, 255, 255);
         push();
         rotateY(PI);
     }
@@ -121,8 +133,23 @@ function draw() {
     shininess(20);
     box(cardWidth, cardHeight, cardDepth);
 
-    if (cos(rotationY) < 0) {
-        pop(); // Correct the orientation for the back texture
+    if (cos(rotationY) > 0) { // Condition to display the text with the front texture
+        // Ensure text is updated if dynamic, or do this once in setup if static
+        push();
+
+        // Position the text plane at the bottom right of the card
+        let planeWidth = cardFrontTexture.width;
+        let planeHeight = cardFrontTexture.height;
+        // Calculate scale to fit within cardWidth while maintaining aspect ratio
+        let scale = min(cardWidth / planeWidth, cardHeight / planeHeight);
+        planeWidth *= scale;
+        planeHeight *= scale;
+
+        noStroke(); // Add this before drawing the plane
+        translate(cardWidth / 2 - planeWidth / 2, cardHeight / 2 - planeHeight / 2, cardDepth / 2 + 1);
+        texture(textGraphics); // Use the graphics buffer as texture
+        plane(planeWidth, planeHeight); // Use scaled dimensions
+        pop();
     }
 }
 

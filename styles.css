@@ -1,4 +1,23 @@
-body, html, canvas {
+@font-face {
+    font-family: 'Pixelify Sans';
+    src: url('PixelifySans.ttf') format('woff2-variations'); 
+    font-weight: 100 900;
+    font-style: normal;
+}
+html, body, canvas {
+	background: gray;
+	color: black;
 	margin: 0;
 	padding: 0;
+	font-family: 'Pixelify Sans', sans-serif;
+	font-size: 1rem;
+}
+#card-details {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    display: block;
+    width: 99%;
+    padding: 20px;
 }

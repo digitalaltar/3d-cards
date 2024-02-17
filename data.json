@@ -1,17 +1,53 @@
 {
   "cardFrontTextures": [
-    "/assets/cyberpunk-african-violet.png",
-    "/assets/cyberpunk-aloe-vera.png",
-    "/assets/cyberpunk-basil.png",
-    "/assets/cyberpunk-catnip.png",
-    "/assets/cyberpunk-chili-pepper.png",
-    "/assets/cyberpunk-marigold.png",
-    "/assets/cyberpunk-mushroom.png",
-    "/assets/cyberpunk-rosemary.png",
-    "/assets/cyberpunk-sage.png",
-    "/assets/cyberpunk-sunflower.png",
-    "/assets/cyberpunk-yarrow.png",
-    "/assets/cyberpunk-rose.png"
+    {
+      "name": "African Violet",
+      "url": "/assets/cyberpunk-african-violet.png"
+    },
+    {
+      "name": "Basil",
+      "url": "/assets/cyberpunk-basil.png"
+    },
+    {
+      "name": "Catnip",
+      "url": "/assets/cyberpunk-catnip.png"
+    },
+    {
+      "name": "Chili Pepper",
+      "url": "/assets/cyberpunk-chili-pepper.png"
+    },
+    {
+      "name": "Marigold",
+      "url": "/assets/cyberpunk-marigold.png"
+    },
+    {
+      "name": "Mushroom",
+      "url": "/assets/cyberpunk-mushroom.png"
+    },
+    {
+      "name": "Rosemary",
+      "url": "/assets/cyberpunk-rosemary.png"
+    },
+    {
+      "name": "Sage",
+      "url": "/assets/cyberpunk-sage.png"
+    },
+    {
+      "name": "Sunflower",
+      "url": "/assets/cyberpunk-sunflower.png"
+    },
+    {
+      "name": "Yarrow",
+      "url": "/assets/cyberpunk-yarrow.png"
+    },
+    {
+      "name": "Rose",
+      "url": "/assets/cyberpunk-rose.png"
+    },
+    {
+      "name": "Aloe Vera",
+      "url": "/assets/cyberpunk-aloe-vera.png"
+    }
   ],
   "cardBackTextures": [
     "/assets/back-gold.png",
