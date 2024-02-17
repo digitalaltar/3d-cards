@@ -27,6 +27,7 @@ let pointLight2Color;
 let textGraphics;
 let customFont;
 let selectedCardDescription;
+let descriptionDiv;
 
 function preload() {
   let data = loadJSON('data.json', () => {
@@ -105,13 +106,16 @@ function setup() {
         b: random(minColor, maxColor)
     };
 
+    // Determine the base font size of the document
+    let baseFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
     // Front Card Text 
     textGraphics = createGraphics(cardWidth, cardHeight); // Adjust size as needed
     textGraphics.background(0, 0, 0, 0); // Make background transparent
     textGraphics.fill(255); // Set text color
     textGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
     textGraphics.textFont(customFont); // Set the custom font
-    textGraphics.textSize(32);
+    textGraphics.textSize(baseFontSize * 2);
     textGraphics.textAlign(RIGHT, BOTTOM);
     textGraphics.text(selectedCard.name, textGraphics.width - 20, textGraphics.height - 10); // Adjust padding as needed
 
@@ -121,7 +125,7 @@ function setup() {
     backtextGraphics.fill(255); // Set text color
     backtextGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
     backtextGraphics.textFont(customFont); // Set the custom font
-    backtextGraphics.textSize(16);
+    backtextGraphics.textSize(baseFontSize * 1);
     backtextGraphics.textAlign(RIGHT, BOTTOM);
     backtextGraphics.text('Created by Digital Altar', backtextGraphics.width - 20, backtextGraphics.height - 10); // Adjust padding as needed
 
@@ -129,27 +133,20 @@ function setup() {
     let screenshotButton = select('#screenshot');
     let exportButton = select('#export');
     let learnButton = select('#learn');
-    let descriptionDiv = select('#description');
+    descriptionDiv = select('#description');
 
     learnButton.html('Learn more about ' + selectedCard.name);
     descriptionDiv.html(selectedCardDescription);
 
-    learnButton.mousePressed(() => {
-        // Check if the descriptionDiv is currently shown or hidden
-        if (descriptionDiv.style('display') === 'none') {
-            descriptionDiv.style('display', 'block'); // Show the div
-        } else {
-            descriptionDiv.style('display', 'none'); // Hide the div
-        }
-    });
-
     // For desktop
     screenshotButton.mousePressed(screenshotCard);
     exportButton.mousePressed(exportCard);
+    learnButton.mousePressed(toggleDescription);
 
     // For mobile touch events
     screenshotButton.elt.addEventListener('touchend', screenshotCard);
     exportButton.elt.addEventListener('touchend', exportCard);
+    learnButton.elt.addEventListener('touchend', toggleDescription);
 }
 
 function draw() {
@@ -218,6 +215,13 @@ function draw() {
     }
 }
 
+// Toggle Content Functions
+function toggleDescription() {
+    let currentDisplay = window.getComputedStyle(descriptionDiv.elt).display;
+    descriptionDiv.style('display', currentDisplay === 'none' ? 'block' : 'none');
+}
+
+// Mouse Functions
 function mousePressed() {
     userHasClicked = true;
     lastMouseX = mouseX;
@@ -251,13 +255,7 @@ function mouseReleased() {
     }, 3000);
 }
 
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the smaller dimension
-    cardWidth = viewportSize * 0.7; //
-    cardHeight = cardWidth; // Maintain aspect ratio
-}
-
+// Touch Functions
 function touchStarted() {
     userHasClicked = true;
     lastTouchX = touches[0].x; // Get the x position of the first touch
@@ -282,7 +280,7 @@ function touchEnded() {
     return false; // Prevent default
 }
 
-// Function to save the card texture
+// Save Functions
 function exportCard() {
     if (cardFrontTexture) {
         save(cardFrontTexture, 'cyberpunk-screenshot.png');
@@ -292,4 +290,36 @@ function exportCard() {
 function screenshotCard() {
     // Saves the current canvas to a file
     saveCanvas('cyberpunk-card', 'png');
+}
+
+function windowResized() {
+    // Resize the canvas to fill the browser window
+    resizeCanvas(windowWidth, windowHeight);
+    viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the smaller dimension
+    cardWidth = viewportSize * 0.7; // Update card size
+    cardHeight = cardWidth; // Maintain aspect ratio
+
+    let baseFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+     // Front Card Text 
+    textGraphics = createGraphics(cardWidth, cardHeight); // Adjust size as needed
+    textGraphics.background(0, 0, 0, 0); // Make background transparent
+    textGraphics.fill(255); // Set text color
+    textGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
+    textGraphics.textFont(customFont); // Set the custom font
+    textGraphics.textSize(baseFontSize * 2);
+    textGraphics.textAlign(RIGHT, BOTTOM);
+    textGraphics.text(selectedCard.name, textGraphics.width - 20, textGraphics.height - 10); // Adjust padding as needed
+
+    // Back Card Text
+    backtextGraphics = createGraphics(cardWidth, cardHeight); // Adjust size as needed
+    backtextGraphics.background(0, 0, 0, 0); // Make background transparent
+    backtextGraphics.fill(255); // Set text color
+    backtextGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
+    backtextGraphics.textFont(customFont); // Set the custom font
+    backtextGraphics.textSize(baseFontSize * 1);
+    backtextGraphics.textAlign(RIGHT, BOTTOM);
+    backtextGraphics.text('Created by Digital Altar', backtextGraphics.width - 20, backtextGraphics.height - 10); // Adjust padding as needed
+
+    // Note: If you have other elements or graphics that depend on window size, update and redraw them here as well
 }
