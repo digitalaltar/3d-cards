@@ -38,7 +38,16 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight, WEBGL);
+    let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+    
+    cnv.id('card');
+    let canvasElement = document.getElementById('card');
+    
+    // Add event listeners to prevent default touch behavior on the canvas
+    canvasElement.addEventListener('touchstart', (e) => e.preventDefault(), {passive: false});
+    canvasElement.addEventListener('touchmove', (e) => e.preventDefault(), {passive: false});
+    canvasElement.addEventListener('touchend', (e) => e.preventDefault(), {passive: false});
+
     textureMode(NORMAL);
     let imgAspect = cardFrontTexture.width / cardFrontTexture.height;
 
@@ -191,4 +200,28 @@ function windowResized() {
     viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the smaller dimension
     cardWidth = viewportSize * 0.7; //
     cardHeight = cardWidth; // Maintain aspect ratio
+}
+
+function touchStarted() {
+    userHasClicked = true;
+    lastTouchX = touches[0].x; // Get the x position of the first touch
+    isDragging = true;
+
+    return false; // Prevent default
+}
+
+function touchMoved() {
+    if (userHasClicked && isDragging) {
+        let deltaX = touches[0].x - lastTouchX;
+        rotationY += radians(deltaX * 0.5); // Adjust rotation based on touch move
+        lastTouchX = touches[0].x; // Update lastTouchX for continuous movement
+    }
+    
+    return false; // Prevent default
+}
+
+function touchEnded() {
+    isDragging = false;
+
+    return false; // Prevent default
 }
