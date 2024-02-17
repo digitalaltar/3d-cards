@@ -277,6 +277,14 @@ function touchMoved() {
 function touchEnded() {
     isDragging = false;
 
+    // Set a new timeout
+    interactionTimeout = setTimeout(() => {
+        // Only start auto-rotating if there's no user interaction
+        if (!isDragging) {
+            userHasClicked = false; // Allow the card to start spinning again
+            autoRotateSpeed = 0.01; // Reset the rotation speed if needed
+        }
+    }, 3000);
     return false; // Prevent default
 }
 
@@ -292,6 +300,7 @@ function screenshotCard() {
     saveCanvas('cyberpunk-card', 'png');
 }
 
+// Window Resized Function
 function windowResized() {
     // Resize the canvas to fill the browser window
     resizeCanvas(windowWidth, windowHeight);
