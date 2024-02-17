@@ -27,15 +27,16 @@ canvas, body {
 .interact {
 	cursor: pointer;
 	padding: 2px;
+	display: inline-block;
 }
-.interact::before, .interact::before {
+.interact::before {
 	content: '> ';
 	font-size: .7rem;
 	vertical-align: middle;
 	margin: 0 5px 2px 0;
 	display: inline-block;
 }
-.interact:hover, .interact:hover {
+.interact:hover {
 	color: blue;
 }
 #description {
