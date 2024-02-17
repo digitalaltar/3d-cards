@@ -1,3 +1,4 @@
+// Card
 let selectedCard;
 let cardFrontTexture;
 let cardBackTexture;
@@ -5,20 +6,27 @@ let viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the 
 let cardWidth = viewportSize * 0.7; //
 let cardHeight = cardWidth; // Maintain aspect ratio
 let cardDepth = 12; // Simulate a bit of depth
+
+// Movement
 let isDragging = false; // Tracks whether the card is being dragged
 let lastMouseX; // Last mouse X position, for calculating rotation speed
 let rotationY = 0; // Current rotation around the Y axis, adjusted for user interaction
 let autoRotateSpeed = 0.01; // Initial automatic rotation speed
 let userHasClicked = false; // New flag to track if the user has clicked
 let interactionTimeout;
+
+// Lighting
 let directionalLightDirection;
 let pointLight1Position;
 let pointLight2Position;
 let directionalLightColor;
 let pointLight1Color;
 let pointLight2Color;
+
+// Text
 let textGraphics;
 let customFont;
+
 
 function preload() {
   let data = loadJSON('data.json', () => {
@@ -107,13 +115,17 @@ function setup() {
     textGraphics.textAlign(RIGHT, BOTTOM);
     textGraphics.text(selectedCard.name, textGraphics.width - 20, textGraphics.height - 10); // Adjust padding as needed
 
-    // Setup button click listener
-    select('#screenshot').mousePressed(screenshotCard);
-    select('#export').mousePressed(exportCard);
+    // Screenshot and Export Features
+    let screenshotButton = select('#screenshot');
+    let exportButton = select('#export');
 
-    // Explicitly handle touch events for mobile browsers
-    document.getElementById('screenshot').addEventListener('touchend', screenshotCard);
-    document.getElementById('export').addEventListener('touchend', exportCard);
+    // For desktop
+    screenshotButton.mousePressed(screenshotCard);
+    exportButton.mousePressed(exportCard);
+
+    // For mobile touch events
+    screenshotButton.elt.addEventListener('touchend', screenshotCard);
+    exportButton.elt.addEventListener('touchend', exportCard);
 }
 
 function draw() {
@@ -241,9 +253,7 @@ function touchEnded() {
 // Function to save the card texture
 function screenshotCard() {
     if (cardFrontTexture) {
-        save(cardFrontTexture, 'cyberpunk.png');
-    } else {
-        console.error("Card is not loaded or available.");
+        save(cardFrontTexture, 'cyberpunk-screenshot.png');
     }
 }
 
