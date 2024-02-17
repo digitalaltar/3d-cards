@@ -39,14 +39,18 @@ function preload() {
 
 function setup() {
     let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
-    
-    cnv.id('card');
-    let canvasElement = document.getElementById('card');
-    
-    // Add event listeners to prevent default touch behavior on the canvas
-    canvasElement.addEventListener('touchstart', (e) => e.preventDefault(), {passive: false});
-    canvasElement.addEventListener('touchmove', (e) => e.preventDefault(), {passive: false});
-    canvasElement.addEventListener('touchend', (e) => e.preventDefault(), {passive: false});
+    cnv.id('card'); // Setting an ID for easy reference
+
+    // Directly attach event listeners to the canvas element
+    document.getElementById('card').addEventListener('touchstart', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+    document.getElementById('card').addEventListener('touchmove', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+    document.getElementById('card').addEventListener('touchend', function(e) {
+        e.preventDefault();
+    }, { passive: false });
 
     textureMode(NORMAL);
     let imgAspect = cardFrontTexture.width / cardFrontTexture.height;

@@ -12,6 +12,9 @@ html, body, canvas {
 	font-family: 'Pixelify Sans', sans-serif;
 	font-size: 1rem;
 }
+canvas, body {
+    touch-action: none;
+}
 #card-details {
     position: absolute;
     bottom: 0;
