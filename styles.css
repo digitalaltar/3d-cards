@@ -11,6 +11,7 @@ html, body, canvas {
 	padding: 0;
 	font-family: 'Pixelify Sans', sans-serif;
 	font-size: 1rem;
+	overflow: hidden;
 }
 canvas, body {
     touch-action: none;
@@ -23,6 +24,9 @@ canvas, body {
     display: block;
     width: 99%;
     padding: 20px;
+}
+.wrapper {
+	max-width: calc(100% - 50px);
 }
 .interact {
 	cursor: pointer;
@@ -42,7 +46,7 @@ canvas, body {
 #description {
 	padding: 30px;
 	background: rgba(0,0,0,.5);
-	width: 90%;
-	max-width: 600px;
 	color: white;
+	display: block;
+	max-width: 600px;
 }
