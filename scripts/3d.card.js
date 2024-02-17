@@ -1,8 +1,9 @@
 let cardFrontTexture;
 let cardBackTexture;
 let overlayImage; // Additional image to overlay on top of the card
-let cardWidth = 500; // Width of the card
-let cardHeight = 500; // Height of the card
+let viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the smaller dimension
+let cardWidth = viewportSize * 0.7; //
+let cardHeight = cardWidth; // Maintain aspect ratio
 let cardDepth = 12; // Simulate a bit of depth
 let isDragging = false; // Tracks whether the card is being dragged
 let lastMouseX; // Last mouse X position, for calculating rotation speed
@@ -38,8 +39,6 @@ function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);
     textureMode(NORMAL);
     let imgAspect = cardFrontTexture.width / cardFrontTexture.height;
-    cardWidth = windowWidth / 3;
-    cardHeight = cardWidth / imgAspect;
 
     // Randomizing the direction for the directional light
     directionalLightDirection = {x: random(-1, 1), y: random(-1, 1), z: random(-1, 1)};
@@ -160,3 +159,9 @@ function mouseReleased() {
     }, 3000);
 }
 
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    viewportSize = Math.min(window.innerWidth, window.innerHeight); // Find the smaller dimension
+    cardWidth = viewportSize * 0.7; //
+    cardHeight = cardWidth; // Maintain aspect ratio
+}
