@@ -19,8 +19,22 @@ canvas, body {
     position: absolute;
     bottom: 0;
     left: 0;
-    text-align: center;
+    text-align: left;
     display: block;
     width: 99%;
     padding: 20px;
+}
+#screenshot, #export {
+	cursor: pointer;
+	padding: 2px;
+}
+#screenshot::before, #export::before {
+	content: '> ';
+	font-size: .7rem;
+	vertical-align: middle;
+	margin: 0 5px 2px 0;
+	display: inline-block;
+}
+#screenshot:hover, #export:hover {
+	color: blue;
 }

@@ -106,6 +106,10 @@ function setup() {
     textGraphics.textSize(32);
     textGraphics.textAlign(RIGHT, BOTTOM);
     textGraphics.text(selectedCard.name, textGraphics.width - 20, textGraphics.height - 10); // Adjust padding as needed
+
+    // Setup button click listener
+    select('#screenshot').mousePressed(screenshotCard);
+    select('#export').mousePressed(exportCard);
 }
 
 function draw() {
@@ -228,4 +232,18 @@ function touchEnded() {
     isDragging = false;
 
     return false; // Prevent default
+}
+
+// Function to save the card texture
+function screenshotCard() {
+    if (cardFrontTexture) {
+        save(cardFrontTexture, 'cyberpunk.png');
+    } else {
+        console.error("Card is not loaded or available.");
+    }
+}
+
+function exportCard() {
+    // Saves the current canvas to a file
+    saveCanvas('cyberpunk-card', 'png');
 }
