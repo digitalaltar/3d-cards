@@ -110,6 +110,10 @@ function setup() {
     // Setup button click listener
     select('#screenshot').mousePressed(screenshotCard);
     select('#export').mousePressed(exportCard);
+
+    // Explicitly handle touch events for mobile browsers
+    document.getElementById('screenshot').addEventListener('touchend', screenshotCard);
+    document.getElementById('export').addEventListener('touchend', exportCard);
 }
 
 function draw() {
