@@ -24,17 +24,24 @@ canvas, body {
     width: 99%;
     padding: 20px;
 }
-#screenshot, #export {
+.interact {
 	cursor: pointer;
 	padding: 2px;
 }
-#screenshot::before, #export::before {
+.interact::before, .interact::before {
 	content: '> ';
 	font-size: .7rem;
 	vertical-align: middle;
 	margin: 0 5px 2px 0;
 	display: inline-block;
 }
-#screenshot:hover, #export:hover {
+.interact:hover, .interact:hover {
 	color: blue;
+}
+#description {
+	padding: 30px;
+	background: rgba(0,0,0,.5);
+	width: 90%;
+	max-width: 600px;
+	color: white;
 }

@@ -26,7 +26,7 @@ let pointLight2Color;
 // Text
 let textGraphics;
 let customFont;
-
+let selectedCardDescription;
 
 function preload() {
   let data = loadJSON('data.json', () => {
@@ -35,6 +35,7 @@ function preload() {
     let randomFrontIndex = floor(random(frontTextures.length));
     selectedCard = frontTextures[randomFrontIndex]; // This now includes the name and URL
     cardFrontTexture = loadImage(selectedCard.url);
+    selectedCardDescription = selectedCard.description;
 
     // Randomly select a back texture
     let backTextures = data.cardBackTextures;
@@ -42,7 +43,7 @@ function preload() {
     cardBackTexture = loadImage(backTextures[randomBackIndex]);
   });
 
-    customFont = loadFont('PixelifySans.ttf');
+  customFont = loadFont('PixelifySans.ttf');
 }
 
 function setup() {
@@ -64,24 +65,23 @@ function setup() {
     let imgAspect = cardFrontTexture.width / cardFrontTexture.height;
 
     // Randomizing the direction for the directional light
-    directionalLightDirection = {x: random(-1, 1), y: random(-1, 1), z: random(-1, 1)};
+    directionalLightDirection = {x: random(-0.5, 0.5), y: random(-0.5, 0), z: random(-1, -0.5)};
 
-    // Randomize position for the first point light
+    // Position the point lights relative to the card's size and presumed location
     pointLight1Position = {
-        x: random(-width / 2, width / 2),
-        y: random(-height / 2, height / 2),
-        z: 300 // Keeping Z constant, but you could randomize this too
+        x: cardWidth * random(-0.5, 0.5),
+        y: cardHeight * random(-0.5, 0.5),
+        z: 300 // Adjust the Z position as needed
     };
 
-    // Randomize position for the second point light
     pointLight2Position = {
-        x: random(-width / 2, width / 2),
-        y: random(-height / 2, height / 2),
-        z: 300 // Again, Z is constant here
+        x: cardWidth * random(-0.5, 0.5),
+        y: cardHeight * random(-0.5, 0.5),
+        z: 300 // Adjust similarly
     };
 
     // Define minimum and maximum RGB values
-    let minColor = 100; // Avoids too dark colors
+    let minColor = 60; // Avoids too dark colors
     let maxColor = 200; // Avoids too bright colors
 
     // Randomize RGB values for the directional light within a good range
@@ -105,8 +105,8 @@ function setup() {
         b: random(minColor, maxColor)
     };
 
+    // Front Card Text 
     textGraphics = createGraphics(cardWidth, cardHeight); // Adjust size as needed
-
     textGraphics.background(0, 0, 0, 0); // Make background transparent
     textGraphics.fill(255); // Set text color
     textGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
@@ -115,9 +115,33 @@ function setup() {
     textGraphics.textAlign(RIGHT, BOTTOM);
     textGraphics.text(selectedCard.name, textGraphics.width - 20, textGraphics.height - 10); // Adjust padding as needed
 
+    // Back Card Text
+    backtextGraphics = createGraphics(cardWidth, cardHeight); // Adjust size as needed
+    backtextGraphics.background(0, 0, 0, 0); // Make background transparent
+    backtextGraphics.fill(255); // Set text color
+    backtextGraphics.noStroke(); // Ensure no stroke is applied to text or the graphics object
+    backtextGraphics.textFont(customFont); // Set the custom font
+    backtextGraphics.textSize(16);
+    backtextGraphics.textAlign(RIGHT, BOTTOM);
+    backtextGraphics.text('Created by Digital Altar', backtextGraphics.width - 20, backtextGraphics.height - 10); // Adjust padding as needed
+
     // Screenshot and Export Features
     let screenshotButton = select('#screenshot');
     let exportButton = select('#export');
+    let learnButton = select('#learn');
+    let descriptionDiv = select('#description');
+
+    learnButton.html('Learn more about ' + selectedCard.name);
+    descriptionDiv.html(selectedCardDescription);
+
+    learnButton.mousePressed(() => {
+        // Check if the descriptionDiv is currently shown or hidden
+        if (descriptionDiv.style('display') === 'none') {
+            descriptionDiv.style('display', 'block'); // Show the div
+        } else {
+            descriptionDiv.style('display', 'none'); // Hide the div
+        }
+    });
 
     // For desktop
     screenshotButton.mousePressed(screenshotCard);
@@ -166,21 +190,29 @@ function draw() {
     shininess(20);
     box(cardWidth, cardHeight, cardDepth);
 
+
+    // Position the text plane at the bottom right of the card
+    let planeWidth = cardFrontTexture.width;
+    let planeHeight = cardFrontTexture.height;
+    // Calculate scale to fit within cardWidth while maintaining aspect ratio
+    let scale = min(cardWidth / planeWidth, cardHeight / planeHeight);
+    planeWidth *= scale;
+    planeHeight *= scale;
+
     if (cos(rotationY) > 0) { // Condition to display the text with the front texture
         // Ensure text is updated if dynamic, or do this once in setup if static
         push();
-
-        // Position the text plane at the bottom right of the card
-        let planeWidth = cardFrontTexture.width;
-        let planeHeight = cardFrontTexture.height;
-        // Calculate scale to fit within cardWidth while maintaining aspect ratio
-        let scale = min(cardWidth / planeWidth, cardHeight / planeHeight);
-        planeWidth *= scale;
-        planeHeight *= scale;
-
         noStroke(); // Add this before drawing the plane
         translate(cardWidth / 2 - planeWidth / 2, cardHeight / 2 - planeHeight / 2, cardDepth / 2 + 1);
         texture(textGraphics); // Use the graphics buffer as texture
+        plane(planeWidth, planeHeight); // Use scaled dimensions
+        pop();
+    } else {
+        // Ensure text is updated if dynamic, or do this once in setup if static
+        push();
+        noStroke(); // Add this before drawing the plane
+        translate(cardWidth / 2 - planeWidth / 2, cardHeight / 2 - planeHeight / 2, cardDepth / 2 + 1);
+        texture(backtextGraphics); // Use the graphics buffers as texture
         plane(planeWidth, planeHeight); // Use scaled dimensions
         pop();
     }
@@ -251,13 +283,13 @@ function touchEnded() {
 }
 
 // Function to save the card texture
-function screenshotCard() {
+function exportCard() {
     if (cardFrontTexture) {
         save(cardFrontTexture, 'cyberpunk-screenshot.png');
     }
 }
 
-function exportCard() {
+function screenshotCard() {
     // Saves the current canvas to a file
     saveCanvas('cyberpunk-card', 'png');
 }

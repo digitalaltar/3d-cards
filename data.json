@@ -2,51 +2,63 @@
   "cardFrontTextures": [
     {
       "name": "African Violet",
-      "url": "/assets/cyberpunk-african-violet.png"
+      "url": "/assets/cyberpunk-african-violet.png",
+      "description": "African Violet carries an air of quiet confidence and a profound depth of character. They are introspective, with a rich inner life that is as complex as it is captivating. In a world that can be harsh and unyielding, African Violet maintains a composed and reflective demeanor, offering a touch of grace and thoughtfulness that is both rare and beautiful."
     },
     {
       "name": "Basil",
-      "url": "/assets/cyberpunk-basil.png"
+      "url": "/assets/cyberpunk-basil.png",
+      "description": "Basil possesses a serene and harmonious essence, instilling tranquility in their wake. They navigate life with a composed and confident grace, providing grounding advice and equilibrium to those around them. Their very presence acts as a grounding force, anchoring the turbulent sea of urban life with a profound sense of peace."
     },
     {
       "name": "Catnip",
-      "url": "/assets/cyberpunk-catnip.png"
+      "url": "/assets/cyberpunk-catnip.png",
+      "description": "Catnip is a carefree and captivating individual, their playful charm and adventurous spirit drawing others to them. With a soothing presence and a mischievous streak, they bring joy and laughter wherever they go, making them a cherished companion to all."
     },
     {
       "name": "Chili Pepper",
-      "url": "/assets/cyberpunk-chili-pepper.png"
+      "url": "/assets/cyberpunk-chili-pepper.png",
+      "description": "Chili Pepper is an intense and passionate character, with a fiery spirit that commands attention. They approach situations with a bold assertiveness, not afraid to spice things up or bring heat when needed. Chili Pepper has a sharp wit and readiness to take action, often serving as a catalyst for change in their environment."
     },
     {
       "name": "Marigold",
-      "url": "/assets/cyberpunk-marigold.png"
+      "url": "/assets/cyberpunk-marigold.png",
+      "description": "Marigold is deeply connected to their intuition, drawing strength from the wisdom of ancestors. They possess a reverence for the past that informs their approach to the present, guiding them with a sense of continuity and tradition. This connection endows Marigold with a profound sense of identity and purpose."
     },
     {
       "name": "Mushroom",
-      "url": "/assets/cyberpunk-mushroom.png"
+      "url": "/assets/cyberpunk-mushroom.png",
+      "description": "Mushroom is a thoughtful individual, often seen as enigmatic and deeply connected to their surroundings. They carry an air of quiet introspection and a natural adaptability. With a steady and observant nature, Mushroom navigates through life's complexities with an understated wisdom and a patience that allows them to see beyond the immediate."
     },
     {
       "name": "Rosemary",
-      "url": "/assets/cyberpunk-rosemary.png"
+      "url": "/assets/cyberpunk-rosemary.png",
+      "description": "Rosemary is insightful and grounded, with a presence that's both calming and invigorating. They navigate life with a clear sense of purpose and an unshakable focus, often serving as a grounding force for those around them. With an intuitive understanding of the world, Rosemary combines practicality with a touch of intuition."
     },
     {
       "name": "Sage",
-      "url": "/assets/cyberpunk-sage.png"
+      "url": "/assets/cyberpunk-sage.png",
+      "description": "Sage carries an aura of mystery and intellect. They approach life with a measured and analytical mindset, displaying a cool detachment that hints at a rich inner world. Sage is a strategist at heart, one who observes and calculates before making a move, embodying a wisdom that is as practical as it is profound."
     },
     {
       "name": "Sunflower",
-      "url": "/assets/cyberpunk-sunflower.png"
+      "url": "/assets/cyberpunk-sunflower.png",
+      "description": "Sunflower is a dynamic individual, alert and responsive to the ever-changing environment around them. They possess an innate resilience, confronting challenges with a calm and collected demeanor. Sunflower navigates life's complexities with adapability, an unwavering resolve, and keen sense of awareness."
     },
     {
       "name": "Yarrow",
-      "url": "/assets/cyberpunk-yarrow.png"
+      "url": "/assets/cyberpunk-yarrow.png",
+      "description": "Yarrow is a stoic observer, wise and unshaken by the world's turbulence. They are an emblem of resilience, their quiet confidence hinting at a deep-rooted understanding. Yarrow respects the boundaries between the tumult of the world and the peace of the inner self, guarding the latter with a reflective reverence."
     },
     {
       "name": "Rose",
-      "url": "/assets/cyberpunk-rose.png"
+      "url": "/assets/cyberpunk-rose.png",
+      "description": "Rose embodies the essence of self-love, nurturing their inner garden with the same care and attention as the melodies that soundtrack their journey. They walk through life with a forgiving heart, seeing each experience as an opportunity to grow and blossom anew. In their contemplative moments, Rose finds strength in acceptance and an unwavering sense of self-assurance."
     },
     {
       "name": "Aloe Vera",
-      "url": "/assets/cyberpunk-aloe-vera.png"
+      "url": "/assets/cyberpunk-aloe-vera.png",
+      "description": "Aloe Vera is a resilient spirit, adaptable and enduring. They exude a healing presence, suggesting a nature both nurturing and protective. Aloe Vera's gaze is forward-thinking, indicative of a visionary with deep roots in the present but always growing towards the future."
     }
   ],
   "cardBackTextures": [
