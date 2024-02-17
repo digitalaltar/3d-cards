@@ -1,0 +1,21 @@
+{
+  "cardFrontTextures": [
+    "/assets/cyberpunk-african-violet.png",
+    "/assets/cyberpunk-aloe-vera.png",
+    "/assets/cyberpunk-basil.png",
+    "/assets/cyberpunk-catnip.png",
+    "/assets/cyberpunk-chili-pepper.png",
+    "/assets/cyberpunk-marigold.png",
+    "/assets/cyberpunk-mushroom.png",
+    "/assets/cyberpunk-rosemary.png",
+    "/assets/cyberpunk-sage.png",
+    "/assets/cyberpunk-sunflower.png",
+    "/assets/cyberpunk-yarrow.png",
+    "/assets/cybperpunk-rose.png"
+  ],
+  "cardBackTextures": [
+    "/assets/back-gold.png",
+    "/assets/back-silver.png",
+    "/assets/back-bronze.png"
+  ]
+}
