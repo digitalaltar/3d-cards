@@ -14,6 +14,7 @@ let rotationY = 0; // Current rotation around the Y axis, adjusted for user inte
 let autoRotateSpeed = 0.01; // Initial automatic rotation speed
 let userHasClicked = false; // New flag to track if the user has clicked
 let interactionTimeout;
+let isTouchDevice = false;
 
 // Lighting
 let directionalLightDirection;
@@ -223,40 +224,47 @@ function toggleDescription() {
 
 // Mouse Functions
 function mousePressed() {
-    userHasClicked = true;
-    lastMouseX = mouseX;
-    isDragging = true;
+    if (!isTouchDevice) {
+        userHasClicked = true;
+        lastMouseX = mouseX;
+        isDragging = true;
 
-    // Clear any existing timeout to ensure it doesn't restart spinning while the user is interacting
-    clearTimeout(interactionTimeout);
+        // Clear any existing timeout to ensure it doesn't restart spinning while the user is interacting
+        clearTimeout(interactionTimeout);
+    }
 }
 
 function mouseDragged() {
-    if (userHasClicked) { // Check if this condition is necessary based on your interaction design
-        let deltaX = mouseX - lastMouseX;
-        rotationY += radians(deltaX * 0.5);
-        lastMouseX = mouseX;
+    if (!isTouchDevice) {
+        if (userHasClicked) { // Check if this condition is necessary based on your interaction design
+            let deltaX = mouseX - lastMouseX;
+            rotationY += radians(deltaX * 0.5);
+            lastMouseX = mouseX;
+        }
     }
 }
 
 function mouseReleased() {
-    isDragging = false;
+    if (!isTouchDevice) {
+        isDragging = false;
 
-    // Clear any existing timeout to prevent multiple timeouts from starting
-    clearTimeout(interactionTimeout);
+        // Clear any existing timeout to prevent multiple timeouts from starting
+        clearTimeout(interactionTimeout);
 
-    // Set a new timeout
-    interactionTimeout = setTimeout(() => {
-        // Only start auto-rotating if there's no user interaction
-        if (!isDragging) {
-            userHasClicked = false; // Allow the card to start spinning again
-            autoRotateSpeed = 0.01; // Reset the rotation speed if needed
-        }
-    }, 3000);
+        // Set a new timeout
+        interactionTimeout = setTimeout(() => {
+            // Only start auto-rotating if there's no user interaction
+            if (!isDragging) {
+                userHasClicked = false; // Allow the card to start spinning again
+                autoRotateSpeed = 0.01; // Reset the rotation speed if needed
+            }
+        }, 3000);
+    }
 }
 
 // Touch Functions
 function touchStarted() {
+    isTouchDevice = true;
     userHasClicked = true;
     lastTouchX = touches[0].x; // Get the x position of the first touch
     isDragging = true;
